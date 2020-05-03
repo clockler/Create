@@ -1,20 +1,21 @@
 {
   "forge_marker": 1,
-  "defaults": {
-	"model": "create:block/crafter/casing"
-  },
   "variants": {
-	"pointing": {
-	  "up": {},
-	  "left": {},
-	  "down": {},
-	  "right": {}
-	},
-    "facing": {
-      "north": { "y": 90 },
-      "south": { "y": 270 },
-      "west": { "y": 0 },
-      "east": { "y": 180 }
-    }
+    "facing=north,pointing=up": { "model": "create:block/crafter/casing", "y": 90 },
+    "facing=north,pointing=left": { "model": "create:block/crafter/casing", "y": 90 },
+    "facing=north,pointing=down": { "model": "create:block/crafter/casing", "y": 90 },
+    "facing=north,pointing=right": { "model": "create:block/crafter/casing", "y": 90 },
+    "facing=south,pointing=up": { "model": "create:block/crafter/casing", "y": 270 },
+    "facing=south,pointing=left": { "model": "create:block/crafter/casing", "y": 270 },
+    "facing=south,pointing=down": { "model": "create:block/crafter/casing", "y": 270 },
+    "facing=south,pointing=right": { "model": "create:block/crafter/casing", "y": 270 },
+    "facing=west,pointing=up": { "model": "create:block/crafter/casing", "y": 0 },
+    "facing=west,pointing=left": { "model": "create:block/crafter/casing", "y": 0 },
+    "facing=west,pointing=down": { "model": "create:block/crafter/casing", "y": 0 },
+    "facing=west,pointing=right": { "model": "create:block/crafter/casing", "y": 0 },
+    "facing=east,pointing=up": { "model": "create:block/crafter/casing", "y": 180 },
+    "facing=east,pointing=left": { "model": "create:block/crafter/casing", "y": 180 },
+    "facing=east,pointing=down": { "model": "create:block/crafter/casing", "y": 180 },
+    "facing=east,pointing=right": { "model": "create:block/crafter/casing", "y": 180 }
   }
 }

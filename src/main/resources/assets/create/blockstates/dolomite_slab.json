@@ -1,13 +1,8 @@
 {
-    "forge_marker": 1,
-    "defaults": {
-        "uvlock": true
-    },
-    "variants": { 
-        "type": {
-			"top": { "model":"create:block/palettes/dolomite_slab_top" },
-			"bottom": { "model":"create:block/palettes/dolomite_slab" },
-			"double": { "model":"create:block/palettes/dolomite" }
-		}
-    }
+  "forge_marker": 1,
+  "variants": {
+    "type=top": { "model":"create:block/palettes/dolomite_slab_top", "uvlock": true },
+    "type=bottom": { "model":"create:block/palettes/dolomite_slab", "uvlock": true },
+    "type=double": { "model":"create:block/palettes/dolomite", "uvlock": true }
+  }
 }

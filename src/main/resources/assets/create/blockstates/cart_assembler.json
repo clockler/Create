@@ -1,20 +1,23 @@
 {
-	"forge_marker": 1,
-	"defaults": {
-		"model": "create:block/cart_assembler"
-	},
-	"variants": {
-		"shape": {
-			"north_south": { },
-			"east_west": { "y": 90 }
-		},
-		"powered": {
-			"false": { },
-			"true": {
-				"textures": {
-					"clutch_off": "create:block/clutch_on"
-				}
-			}
-		}
-	}
+  "forge_marker": 1,
+  "defaults": {
+    "model": "create:block/cart_assembler"
+  },
+  "variants": {
+    "shape=north_south,powered=false": { "model": "create:block/cart_assembler" },
+    "shape=north_south,powered=true": {
+      "model": "create:block/cart_assembler",
+      "textures": {
+        "clutch_off": "create:block/clutch_on"
+      }
+    },
+    "shape=east_west,powered=false": { "model": "create:block/cart_assembler", "y": 90 },
+    "shape=east_west,powered=true": {
+      "model": "create:block/cart_assembler",
+      "y": 90,
+      "textures": {
+        "clutch_off": "create:block/clutch_on"
+      }
+    }
+  }
 }
