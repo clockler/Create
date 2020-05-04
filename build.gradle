@@ -16,14 +16,14 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = 'mc1.15.2_v0.2.3'
+version = "mc${mc_version}_v${create_version}"
 group = 'com.simibubi.create'
 archivesBaseName = 'create'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: '20200301-mixed-1.15.2'
+    mappings channel: 'snapshot', version: "${mcp_mappings}"
 	accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     
     runs {		
@@ -95,16 +95,16 @@ configurations {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.15.2-31.1.36'
+    minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
     
-    def registrate = "com.tterrag.registrate:Registrate:MC1.15.2-0.0.3.8"
+    def registrate = "com.tterrag.registrate:Registrate:MC${mc_version}-${registrate_version}"
     implementation fg.deobf(registrate)
     shade registrate
     
     // compile against the JEI API but do not include it at runtime
- 	compileOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.2:api")
+ 	compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
   	// at runtime, use the full JEI jar
-  	runtimeOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.2")
+  	runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
 
     // i'll leave this here commented for easier testing
     //runtimeOnly fg.deobf("vazkii.arl:AutoRegLib:1.4-35.69")
@@ -118,7 +118,7 @@ jar {
             "Specification-Vendor": "simibubi",
             "Specification-Version": "1",
             "Implementation-Title": project.name,
-            "Implementation-Version": "${version}",
+            "Implementation-Version": "${create_version}",
             "Implementation-Vendor" :"simibubi",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
