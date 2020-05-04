@@ -6,11 +6,14 @@ import java.util.List;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.gui.ScreenElementRenderer;
+import com.simibubi.create.compat.CuriosCompat;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -25,6 +28,23 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 @EventBusSubscriber(value = Dist.CLIENT)
 public class GoggleOverlayRenderer {
 
+	private static boolean areGogglesEquipped(ClientPlayerEntity player)
+	{
+		if (CuriosCompat.areGogglesEquipped(player))
+		{
+			return true;
+		}
+		else
+		{
+			Item headItem = player.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem();
+			if (headItem == AllItems.GOGGLES.get())
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	@SubscribeEvent
 	public static void lookingAtBlocksThroughGogglesShowsTooltip(RenderGameOverlayEvent.Post event) {
 		if (event.getType() != ElementType.HOTBAR)
@@ -38,7 +58,6 @@ public class GoggleOverlayRenderer {
 		Minecraft mc = Minecraft.getInstance();
 		ClientWorld world = mc.world;
 		BlockPos pos = result.getPos();
-		ItemStack goggles = mc.player.getItemStackFromSlot(EquipmentSlotType.HEAD);
 		TileEntity te = world.getTileEntity(pos);
 
 		boolean goggleInformation = te instanceof IHaveGoggleInformation;
@@ -49,7 +68,7 @@ public class GoggleOverlayRenderer {
 
 		List<String> tooltip = new ArrayList<>();
 
-		if (goggleInformation && AllItems.GOGGLES.typeOf(goggles)) {
+		if (goggleInformation && areGogglesEquipped(mc.player)) {
 			IHaveGoggleInformation gte = (IHaveGoggleInformation) te;
 			if (!gte.addToGoggleTooltip(tooltip, mc.player.isSneaking()))
 				goggleInformation = false;

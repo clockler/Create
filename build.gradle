@@ -88,6 +88,10 @@ repositories {
         name = "tterrag maven"
         url = "https://maven.tterrag.com/"
     }
+    maven {
+        // Maven for Curios API
+        url = "https://maven.theillusivec4.top/"
+    }
 }
 
 configurations {
@@ -105,6 +109,9 @@ dependencies {
  	compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
   	// at runtime, use the full JEI jar
   	runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
+
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-${mc_version}-${curios_version}")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-${mc_version}-${curios_version}:api")
 
     // i'll leave this here commented for easier testing
     //runtimeOnly fg.deobf("vazkii.arl:AutoRegLib:1.4-35.69")

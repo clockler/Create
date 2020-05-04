@@ -27,6 +27,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import com.simibubi.create.compat.CuriosCompat;
 
 @Mod(Create.ID)
 public class Create {
@@ -46,6 +47,7 @@ public class Create {
 	public Create() {
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		modEventBus.addListener(Create::init);
+		modEventBus.addListener(CuriosCompat::enqueueIMC);
 
 		MinecraftForge.EVENT_BUS.addListener(Create::serverStarting);
 
