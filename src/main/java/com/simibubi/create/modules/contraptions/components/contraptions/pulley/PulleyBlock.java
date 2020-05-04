@@ -1,6 +1,5 @@
 package com.simibubi.create.modules.contraptions.components.contraptions.pulley;
 
-import com.simibubi.create.foundation.block.IHaveNoBlockItem;
 import com.simibubi.create.foundation.block.ITE;
 import com.simibubi.create.foundation.utility.AllShapes;
 import com.simibubi.create.modules.contraptions.base.HorizontalAxisKineticBlock;
@@ -81,7 +80,7 @@ public class PulleyBlock extends HorizontalAxisKineticBlock implements ITE<Pulle
 		pulley.sendData();
 	}
 
-	private static class RopeBlockBase extends Block implements IHaveNoBlockItem {
+	private static class RopeBlockBase extends Block {
 
 		public RopeBlockBase(Properties properties) {
 			super(properties);

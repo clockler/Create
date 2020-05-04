@@ -1,14 +1,16 @@
 package com.simibubi.create;
 
-import com.simibubi.create.foundation.block.IHaveNoBlockItem;
 import com.simibubi.create.foundation.item.IAddedByOther;
+import com.tterrag.registrate.util.RegistryEntry;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -34,20 +36,16 @@ public final class CreateItemGroup extends ItemGroup {
 
 	@OnlyIn(Dist.CLIENT)
 	public void addBlocks(NonNullList<ItemStack> items) {
-		for (AllBlocks block : AllBlocks.values()) {
-			Block def = block.get();
+		for (RegistryEntry<? extends Block> entry : Create.registrate().getAll(Block.class)) {
+			Block def = entry.get();
 			if (def == null)
-				continue;
-			if (!block.module.isEnabled())
-				continue;
-			if (def instanceof IHaveNoBlockItem && !((IHaveNoBlockItem) def).hasBlockItem())
 				continue;
 			if (def instanceof IAddedByOther)
 				continue;
 
-			def.asItem().fillItemGroup(this, items);
-			for (AllBlocks.TaggedBlock alsoRegistered : block.alsoRegistered)
-				alsoRegistered.getBlock().asItem().fillItemGroup(this, items);
+			Item item = def.asItem();
+			if (item != Items.AIR) 
+    			item.fillItemGroup(this, items);
 		}
 	}
 
@@ -57,8 +55,6 @@ public final class CreateItemGroup extends ItemGroup {
 
 		for (AllItems item : AllItems.values()) {
 			if (item.get() == null)
-				continue;
-			if (!item.module.isEnabled())
 				continue;
 			IBakedModel model = itemRenderer.getItemModelWithOverrides(item.asStack(), Minecraft.getInstance().world, null);
 			if (model.isGui3d() != specialItems)

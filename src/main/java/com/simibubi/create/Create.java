@@ -8,12 +8,11 @@ import com.simibubi.create.foundation.advancement.AllTriggers;
 import com.simibubi.create.foundation.command.CreateCommand;
 import com.simibubi.create.foundation.command.ServerLagger;
 import com.simibubi.create.foundation.world.AllWorldFeatures;
-import com.simibubi.create.modules.ModuleLoadedCondition;
 import com.simibubi.create.modules.contraptions.TorquePropagator;
 import com.simibubi.create.modules.logistics.RedstoneLinkNetworkHandler;
 import com.simibubi.create.modules.schematics.ServerSchematicLoader;
+import com.tterrag.registrate.util.NonNullLazyValue;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
@@ -23,7 +22,6 @@ import net.minecraft.particles.ParticleType;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -43,6 +41,7 @@ public class Create {
 	public static RedstoneLinkNetworkHandler redstoneLinkNetworkHandler;
 	public static TorquePropagator torquePropagator;
 	public static ServerLagger lagger;
+	private static final NonNullLazyValue<CreateRegistrate> registrate = CreateRegistrate.lazy(ID);
 
 	public Create() {
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -50,7 +49,9 @@ public class Create {
 
 		MinecraftForge.EVENT_BUS.addListener(Create::serverStarting);
 
-		modEventBus.addGenericListener(Block.class, AllBlocks::register);
+		AllBlocksNew.register();
+		AllBlocks.register();
+//		modEventBus.addGenericListener(Block.class, AllBlocks::register);
 		modEventBus.addGenericListener(Item.class, AllItems::register);
 		modEventBus.addGenericListener(IRecipeSerializer.class, AllRecipes::register);
 		modEventBus.addGenericListener(TileEntityType.class, AllTileEntities::register);
@@ -59,22 +60,23 @@ public class Create {
 		modEventBus.addGenericListener(ParticleType.class, AllParticles::register);
 		modEventBus.addGenericListener(SoundEvent.class, AllSoundEvents::register);
 
-		AllConfigs.registerAll();
 		modEventBus.addListener(AllConfigs::onLoad);
 		modEventBus.addListener(AllConfigs::onReload);
 		CreateClient.addListeners(modEventBus);
-		AllWorldFeatures.reload();
 	}
 
 	public static void init(final FMLCommonSetupEvent event) {
+	    AllConfigs.registerAll();
+
 		schematicReceiver = new ServerSchematicLoader();
 		redstoneLinkNetworkHandler = new RedstoneLinkNetworkHandler();
 		torquePropagator = new TorquePropagator();
 		lagger = new ServerLagger();
 
-		CraftingHelper.register(new ModuleLoadedCondition.Serializer());
 		AllPackets.registerPackets();
 		AllTriggers.register();
+		
+		AllWorldFeatures.reload();
 	}
 
 	public static void serverStarting(FMLServerStartingEvent event) {
@@ -93,4 +95,7 @@ public class Create {
 		schematicReceiver.shutdown();
 	}
 
+	public static CreateRegistrate registrate() {
+	    return registrate.get();
+	}
 }

@@ -3,7 +3,7 @@ package com.simibubi.create.modules.schematics.block;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.simibubi.create.AllBlocks;
+import com.simibubi.create.AllBlocksNew;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.AllTileEntities;
@@ -137,7 +137,7 @@ public class SchematicannonTileEntity extends SmartTileEntity implements INamedC
 			if (!world.isBlockPresent(pos.offset(facing)))
 				continue;
 
-			if (AllBlocks.CREATIVE_CRATE.typeOf(world.getBlockState(pos.offset(facing)))) {
+			if (AllBlocksNew.CREATIVE_CRATE.get() == world.getBlockState(pos.offset(facing)).getBlock()) {
 				hasCreativeCrate = true;
 			}
 
