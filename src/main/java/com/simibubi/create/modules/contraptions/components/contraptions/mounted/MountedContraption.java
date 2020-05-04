@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.simibubi.create.AllBlocks;
+import com.simibubi.create.AllBlocksNew;
 import com.simibubi.create.foundation.utility.NBTHelper;
 import com.simibubi.create.modules.contraptions.components.contraptions.AllContraptionTypes;
 import com.simibubi.create.modules.contraptions.components.contraptions.BlockMovementTraits;
@@ -64,7 +65,7 @@ public class MountedContraption extends Contraption {
 		frontier.clear();
 		frontier.add(pos.up());
 		BlockState state = world.getBlockState(pos);
-		if (!AllBlocks.CART_ASSEMBLER.typeOf(state))
+		if (AllBlocksNew.CART_ASSEMBLER.get() != state.getBlock())
 			return false;
 		Axis axis = state.get(CartAssemblerBlock.RAIL_SHAPE) == RailShape.EAST_WEST ? Axis.Z : Axis.X;
 		for (AxisDirection axisDirection : AxisDirection.values()) {
@@ -82,7 +83,7 @@ public class MountedContraption extends Contraption {
 	protected Pair<BlockInfo, TileEntity> capture(World world, BlockPos pos) {
 		Pair<BlockInfo, TileEntity> pair = super.capture(world, pos);
 		BlockInfo capture = pair.getKey();
-		if (AllBlocks.CART_ASSEMBLER.typeOf(capture.state))
+		if (AllBlocksNew.CART_ASSEMBLER.get() == capture.state.getBlock())
 			return Pair.of(new BlockInfo(capture.pos, CartAssemblerBlock.createAnchor(capture.state), null),
 					pair.getValue());
 		return pair;

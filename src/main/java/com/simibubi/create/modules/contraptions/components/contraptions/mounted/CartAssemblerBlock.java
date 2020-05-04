@@ -38,8 +38,8 @@ public class CartAssemblerBlock extends AbstractRailBlock implements ITE<CartAss
 		EnumProperty.create("shape", RailShape.class, RailShape.EAST_WEST, RailShape.NORTH_SOUTH);
 	public static BooleanProperty POWERED = BlockStateProperties.POWERED;
 
-	public CartAssemblerBlock() {
-		super(true, Properties.from(Blocks.PISTON));
+	public CartAssemblerBlock(Properties properties) {
+		super(true, properties);
 		setDefaultState(getDefaultState().with(POWERED, false));
 	}
 

@@ -159,7 +159,7 @@ public enum AllBlocks implements NonNullSupplier<Block> {
 	ROPE_PULLEY(PulleyBlock::new),
 	ROPE(PulleyBlock.RopeBlock::new, ComesWith.NO_BLOCKITEM),
 	PULLEY_MAGNET(PulleyBlock.MagnetBlock::new, ComesWith.NO_BLOCKITEM),
-	CART_ASSEMBLER(CartAssemblerBlock::new, ITaggable.create().withVanillaTags(ITaggable.BLOCK, "rails")),
+	// CART_ASSEMBLER(CartAssemblerBlock::new, ITaggable.create().withVanillaTags(ITaggable.BLOCK, "rails")),
 	MINECART_ANCHOR(MinecartAnchorBlock::new, ComesWith.NO_BLOCKITEM),
 	TRANSLATION_CHASSIS(LinearChassisBlock::new),
 	TRANSLATION_CHASSIS_SECONDARY(LinearChassisBlock::new),
